@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Il mio carrello</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #e0e0e0; /* Grigio */
+    }
+    /* Navbar personalizzata */
+    .custom-navbar {
+      background-color: darkorange; 
+    }
+    .custom-navbar a {
+      color: white !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar custom-navbar">
+    <div class="container-fluid">
+      <div class="d-flex">
+        <a class="navbar-brand me-3" href="index.html">HomePage</a>
+        <a class="navbar-brand me-2" href="prodotti.html">Prodotti</a>
+      </div>
+      <div class="d-flex">
+        <a class="btn btn-outline-light" href="prodotti.html">Torna indietro</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Contenuto della pagina Carrello -->
+  <div class="container mt-4">
+    <h2>Il tuo carrello</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Prodotto</th>
+          <th>Quantità</th>
+          <th>Prezzo (totale)</th>
+        </tr>
+      </thead>
+      <tbody id="cartItems">
+        <!-- Gli elementi verranno aggiunti qui -->
+      </tbody>
+    </table>
+    <h4 id="totalPrice">Totale: 0.00 €</h4>
+    <button class="btn btn-secondary" onclick="clearCart()">Svuota Carrello</button>
+  </div>
+
+  <script>
+    // Recupera il carrello dal localStorage
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function renderCart() {
+      const cartItemsContainer = document.getElementById('cartItems');
+      cartItemsContainer.innerHTML = '';
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price;
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.product}</td>
+          <td>${item.quantity}</td>
+          <td>${item.price.toFixed(2)} €</td>
+        `;
+        cartItemsContainer.appendChild(row);
+      });
+      document.getElementById('totalPrice').innerText = `Totale: ${total.toFixed(2)} €`;
+    }
+
+    // Funzione per svuotare il carrello (opzionale)
+    function clearCart() {
+      if(confirm("Sei sicuro di voler svuotare il carrello?")) {
+        cart = [];
+        localStorage.setItem('cart', JSON.stringify(cart));
+        renderCart();
+      }
+    }
+
+    
+    document.addEventListener("DOMContentLoaded", renderCart);
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
