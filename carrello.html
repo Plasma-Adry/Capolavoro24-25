@@ -2,25 +2,21 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Il mio carrello</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body {
-      background-color: #e0e0e0; /* Grigio */
-    }
-    /* Navbar personalizzata */
-    .custom-navbar {
-      background-color: darkorange; 
-    }
-    .custom-navbar a {
-      color: white !important;
-    }
+    body { background-color: #e0e0e0; }
+    .custom-navbar { background-color: darkorange; }
+    .custom-navbar a, .custom-navbar button { color: white !important; }
+    /* Posiziona il widget in alto a destra */
+    #google_translate_element { position: absolute; top: 0.5rem; right: 0.5rem; z-index: 1000; }
   </style>
 </head>
 <body>
   <!-- Navbar -->
-  <nav class="navbar custom-navbar">
+  <nav class="navbar custom-navbar position-relative">
+    <div id="google_translate_element"></div>
     <div class="container-fluid">
       <div class="d-flex">
         <a class="navbar-brand me-3" href="index.html">HomePage</a>
@@ -32,58 +28,62 @@
     </div>
   </nav>
 
-  <!-- Contenuto della pagina Carrello -->
+  <!-- Contenuto Carrello -->
   <div class="container mt-4">
     <h2>Il tuo carrello</h2>
     <table class="table">
       <thead>
         <tr>
-          <th>Prodotto</th>
-          <th>Quantità</th>
-          <th>Prezzo (totale)</th>
+          <th>Prodotto</th><th>Quantità</th><th>Prezzo (totale)</th>
         </tr>
       </thead>
-      <tbody id="cartItems">
-        <!-- Gli elementi verranno aggiunti qui -->
-      </tbody>
+      <tbody id="cartItems"></tbody>
     </table>
     <h4 id="totalPrice">Totale: 0.00 €</h4>
     <button class="btn btn-secondary" onclick="clearCart()">Svuota Carrello</button>
   </div>
 
+  <!-- Script Carrello -->
   <script>
-    // Recupera il carrello dal localStorage
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
     function renderCart() {
-      const cartItemsContainer = document.getElementById('cartItems');
-      cartItemsContainer.innerHTML = '';
+      const container = document.getElementById('cartItems');
+      container.innerHTML = '';
       let total = 0;
       cart.forEach(item => {
         total += item.price;
-        const row = document.createElement('tr');
-        row.innerHTML = `
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
           <td>${item.product}</td>
           <td>${item.quantity}</td>
           <td>${item.price.toFixed(2)} €</td>
         `;
-        cartItemsContainer.appendChild(row);
+        container.appendChild(tr);
       });
       document.getElementById('totalPrice').innerText = `Totale: ${total.toFixed(2)} €`;
     }
-
-    // Funzione per svuotare il carrello (opzionale)
     function clearCart() {
-      if(confirm("Sei sicuro di voler svuotare il carrello?")) {
+      if (confirm("Sicuro di voler svuotare il carrello?")) {
         cart = [];
         localStorage.setItem('cart', JSON.stringify(cart));
         renderCart();
       }
     }
-
-    
     document.addEventListener("DOMContentLoaded", renderCart);
   </script>
+
+  <!-- Google Translate Widget -->
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'it',
+        includedLanguages: 'it,en',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      }, 'google_translate_element');
+    }
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
