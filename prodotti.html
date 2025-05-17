@@ -38,6 +38,10 @@
             background-color: #f8f9fa;
             border-radius: 8px;
         }
+        /* Nasconde il widget vero di Google Translate */
+        #google_translate_element {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -45,20 +49,31 @@
     <img src="apulix2.jpeg" class="img-fluid w-100" alt="header">
     
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">Apulix Shop: Prodotti</a>
-        <div class="d-flex">
-            <button class="btn btn-secondary me-2" onclick="window.location.href='index.html'">Homepage</button>
-            <img src="gusto.png.png" alt="Bocca" class="icon me-3" onclick="window.location.href='gusto.html'">
-            <div style="position: relative;">
-                <img src="carrello.png.png" alt="Carrello" class="icon" onclick="window.location.href='carrello.html'">
-                <span id="cartCount" class="cart-badge" style="display: none;">0</span>
+      <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">Apulix Shop: Prodotti</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                  aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="d-flex ms-auto align-items-center">
+              <button class="btn btn-secondary me-2" onclick="window.location.href='index.html'">Homepage</button>
+              <img src="gusto.png.png" alt="Bocca" class="icon me-3" onclick="window.location.href='gusto.html'">
+              <div style="position: relative;" class="me-3">
+                  <img src="carrello.png.png" alt="Carrello" class="icon" onclick="window.location.href='carrello.html'">
+                  <span id="cartCount" class="cart-badge" style="display: none;">0</span>
+              </div>
+              <!-- Bottone EN per tradurre -->
+              <button class="btn btn-outline-primary" onclick="translateToEnglish()">EN</button>
             </div>
-        </div>
-    </div>
-</nav>
+          </div>
+      </div>
+    </nav>
 
-    
+    <!-- Punto di inserimento nascosto per Google Translate -->
+    <div id="google_translate_element"></div>
+
     <!-- Messaggio di benvenuto -->
     <div class="container">
         <div class="welcome-message">
@@ -98,7 +113,7 @@
                 <div class="card mb-3">
                     <img src="IMG_0699.jpeg" class="card-img-top" alt="Focaccia Rossa">
                     <div class="card-body">
-                        <h5 class="card-title mb-6">Focaccia Rossa</h5>
+                        <h5 class="card-title">Focaccia Rossa</h5>
                         <p class="card-text">Ruota di focaccia al kg.</p>
                         <p class="card-text">Prezzo: <span id="prezzoFocaccia">0.00</span> €</p>
                         <div class="input-group mb-3">
@@ -167,7 +182,7 @@
 
             <!-- Card 5: Mozzarelle -->
             <div class="col-md-3">
-                <div class="card">
+                <div class="card mb-3">
                     <img src="mozzarella.jpg" class="card-img-top" alt="Mozzarelle">
                     <div class="card-body">
                         <h5 class="card-title">Mozzarelle</h5>
@@ -191,7 +206,7 @@
 
             <!-- Card 6: Olio d'Oliva -->
             <div class="col-md-3">
-                <div class="card">
+                <div class="card mb-3">
                     <img src="olio.jpg" class="card-img-top" alt="Olio d'Oliva">
                     <div class="card-body">
                         <h5 class="card-title">Olio d'Oliva</h5>
@@ -215,7 +230,7 @@
 
             <!-- Card 7: Cavatelli -->
             <div class="col-md-3">
-                <div class="card">
+                <div class="card mb-3">
                     <img src="cav.jpg" class="card-img-top" alt="Cavatelli">
                     <div class="card-body">
                         <h5 class="card-title">Cavatelli</h5>
@@ -239,7 +254,7 @@
 
             <!-- Card 8: Formaggio Pugliese -->
             <div class="col-md-3">
-                <div class="card">
+                <div class="card mb-3">
                     <img src="caciocavallo-silano-dop.jpg" class="card-img-top" alt="Formaggio Pugliese">
                     <div class="card-body">
                         <h5 class="card-title">Formaggio Pugliese</h5>
@@ -280,44 +295,57 @@
         function addToCart(productName, quantityInputId, priceId) {
             const quantity = parseFloat(document.getElementById(quantityInputId).value);
             if (quantity > 0) {
-                // Recupera il prezzo visualizzato (già calcolato in base al numero di incrementi da 0.5)
                 const price = parseFloat(document.getElementById(priceId).innerText);
-                // Aggiungi l'oggetto prodotto al carrello
                 cart.push({ product: productName, quantity: quantity, price: price });
-                // Salva il carrello nel localStorage
                 localStorage.setItem('cart', JSON.stringify(cart));
-                // Aggiorna il badge
                 updateCartBadge();
             } else {
                 alert("Seleziona almeno 0,5 prodotto.");
             }
         }
 
-        // Funzione per incrementare la quantità di 0.5 e aggiornare il prezzo
+        // Funzione per incrementare la quantità e aggiornare il prezzo
         function increase(inputId, priceId, unitPrice) {
             let quantity = parseFloat(document.getElementById(inputId).value);
             quantity += 0.5;
             document.getElementById(inputId).value = quantity.toFixed(1);
-            // Calcola il prezzo in base a quanti "mezzi kg" sono stati aggiunti
             document.getElementById(priceId).innerText = ((quantity / 0.5) * unitPrice).toFixed(2);
         }
 
-        // Funzione per decrementare la quantità di 0.5 e aggiornare il prezzo
+        // Funzione per decrementare la quantità e aggiornare il prezzo
         function decrease(inputId, priceId, unitPrice) {
             let quantity = parseFloat(document.getElementById(inputId).value);
             if (quantity > 0) {
                 quantity -= 0.5;
-                // Evita quantità negative
-                if(quantity < 0) quantity = 0;
+                if (quantity < 0) quantity = 0;
                 document.getElementById(inputId).value = quantity.toFixed(1);
                 document.getElementById(priceId).innerText = ((quantity / 0.5) * unitPrice).toFixed(2);
             }
         }
 
-        // Al caricamento della pagina, aggiorna il badge del carrello
         document.addEventListener("DOMContentLoaded", updateCartBadge);
+    </script>
+
+    <!-- Script di traduzione Google Translate -->
+    <script>
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+          pageLanguage: 'it',
+          autoDisplay: false
+        }, 'google_translate_element');
+      }
+      function translateToEnglish() {
+        var host = window.location.hostname;
+        document.cookie = "googtrans=/it/en;path=/;domain=" + host;
+        document.cookie = "googtrans=/it/en;path=/;domain=." + host;
+        location.reload();
+      }
+    </script>
+    <script type="text/javascript"
+      src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
