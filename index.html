@@ -23,6 +23,10 @@
             max-height: 250px;
             object-fit: cover;
         }
+        /* Nasconde il widget vero di Google Translate */
+        #google_translate_element {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -33,27 +37,27 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Apulix Shop</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="prodotti.html">Prodotti</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#chi-siamo">Chi Siamo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contatti">Contatti</a></li>
+                    <!-- Bottone EN per tradurre -->
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="prodotti.html">Prodotti</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#chi-siamo">Chi Siamo</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contatti">Contatti</a>
+                        <button class="btn btn-outline-primary ms-3" onclick="translateToEnglish()">EN</button>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+
+    <!-- Punto di inserimento nascosto per Google Translate -->
+    <div id="google_translate_element"></div>
 
     <!-- Hero Section -->
     <section class="hero-section text-center">
@@ -62,58 +66,26 @@
             <p class="lead">Scopri i migliori prodotti tipici pugliesi direttamente a casa tua!</p>
         </div>
     </section>
-    <div class="alert alert-warning ml-5 mr-5" role="alert">
-      <h4 align="center" class="alert-heading"> Benvenuti su Apulix!</h4>
-      <p align="center">Vi presentiamo il sito online di Apulix, dove sarete in grado di acquistare i nostri prodotti senza dovervi recare fisicamente in negozio!</p>
-      <hr>
-      <p  align="center" class="mb-0">Non vi preoccupate, non si pagano nè consegna, nè commissioni! Per accedere ai nostri prodotti, potete cliccare su "Prodotti" in alto a destra oppure accedere dal seguente link: <a href="https://gabrielsaltarelli.github.io/informatica-problema/prodotti.html" class="alert-link"> Prodotti </a></p>
-    </div>
-
     
+    <div class="alert alert-warning mx-5" role="alert">
+      <h4 class="alert-heading text-center">Benvenuti su Apulix!</h4>
+      <p class="text-center">Vi presentiamo il sito online di Apulix, dove sarete in grado di acquistare i nostri prodotti senza dovervi recare fisicamente in negozio!</p>
+      <hr>
+      <p class="text-center mb-0">Non vi preoccupate, non si pagano nè consegna, nè commissioni! Per accedere ai nostri prodotti, cliccate su "Prodotti" in alto a destra oppure seguite questo link: 
+        <a href="https://gabrielsaltarelli.github.io/informatica-problema/prodotti.html" class="alert-link">Prodotti</a>
+      </p>
+    </div>
 
     <!-- Chi siamo -->
     <section id="chi-siamo" class="bg-light py-5">
         <div class="container">
             <h2 class="text-center mb-4">Chi Siamo</h2>
-            <p class="text-center">Apulix Shop è un negozio online che offre una selezione dei migliori prodotti tipici della Puglia. Dalla focaccia alle orecchiette, fino ai tarallini freschi, portiamo il gusto autentico della nostra terra direttamente a casa tua.</p>
-            <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        header {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        h1 {
-            font-weight: 700;
-            margin: 0;
-        }
-
-        p {
-            font-weight: 400;
-            padding: 20px;
-            margin: 10px;
-        }
-    </style>
-</head>
-<body>
-
-    <p class="text-center">Nel nostro sito, la tradizione pugliese si fonde con l’innovazione per offrire un’esperienza sensoriale senza precedenti: gustare i prodotti artigianali non solo con il palato, ma anche attraverso l’audio. Grazie a una tecnologia esclusiva, ogni prodotto è accompagnato da registrazioni audio reali che catturano i suoni autentici della nostra terra dal fruscio degli ulivi al crepitio della legna nei frantoi, fino al sussurro dei venti che accarezzano le campagne.
-
-Questa sinestesia sonora trasforma ogni degustazione in un viaggio emozionale, dove le note acustiche evocano la passione e la cura artigianale che caratterizzano la nostra produzione. Ogni suono diventa un invito a percepire il gusto in maniera nuova, amplificando l’esperienza culinaria e rivelando sfumature che il semplice assaggio non può esprimere.
-
-Scoprite come, attraverso l’integrazione sapiente di suono e sapore, la tradizione pugliese si rinnova, regalando un modo innovativo e coinvolgente di assaporare la nostra eccellenza artigianale.</p>
-
-</body>
+            <p class="text-center">
+                Apulix Shop è un negozio online che offre una selezione dei migliori prodotti tipici della Puglia. Dalla focaccia alle orecchiette, fino ai tarallini freschi, portiamo il gusto autentico della nostra terra direttamente a casa tua.
+            </p>
+            <p class="text-center">
+                Nel nostro sito, la tradizione pugliese si fonde con l’innovazione per offrire un’esperienza sensoriale senza precedenti...
+            </p>
         </div>
     </section>
 
@@ -131,18 +103,26 @@ Scoprite come, attraverso l’integrazione sapiente di suono e sapore, la tradiz
         </div>
     </section>
 
+    <!-- Script di traduzione e logica del bottone -->
     <script>
-        function increase(inputGenerico){
-            let quantityInput = document.getElementById(inputGenerico);
-            quantityInput.value = parseFloat(quantityInput.value) + 0.5;
-        }
+      // Inizializza il widget Google Translate (nascosto)
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+          pageLanguage: 'it',
+          autoDisplay: false
+        }, 'google_translate_element');
+      }
 
-        function decrease(inputGenerico){
-            let quantityInput = document.getElementById(inputGenerico);
-            if (parseFloat(quantityInput.value) > 0) {
-                quantityInput.value = parseFloat(quantityInput.value) - 0.5;
-            }
-        }
+      // Al click, imposta cookie per traduzione e ricarica
+      function translateToEnglish() {
+        var host = window.location.hostname;
+        document.cookie = "googtrans=/it/en;path=/;domain=" + host;
+        document.cookie = "googtrans=/it/en;path=/;domain=." + host;
+        location.reload();
+      }
+    </script>
+    <script type="text/javascript"
+      src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
