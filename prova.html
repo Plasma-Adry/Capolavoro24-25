@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apulix Shop - Negozio Alimentare</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .icon {
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+        }
+        .hero-section {
+            background: url('https://via.placeholder.com/1920x600') no-repeat center center;
+            background-size: cover;
+            color: black;
+            padding: 100px 0;
+        }
+        .product-card img {
+            max-height: 250px;
+            object-fit: cover;
+        }
+        /* Nasconde il widget vero di Google Translate */
+        #google_translate_element {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+     
+    <img src="apulix2.jpeg" class="img-fluid w-100" alt="header">
+  
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Apulix Shop</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="prodotti.html">Prodotti</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#chi-siamo">Chi Siamo</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contatti">Contatti</a></li>
+                    <!-- Bottone EN per tradurre -->
+                    <li class="nav-item">
+                        <button class="btn btn-outline-primary ms-3" onclick="translateToEnglish()">EN</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Punto di inserimento nascosto per Google Translate -->
+    <div id="google_translate_element"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-3">Apulix: assapora la Puglia, in ogni boccone</h1>
+            <p class="lead">Scopri i migliori prodotti tipici pugliesi direttamente a casa tua!</p>
+        </div>
+    </section>
+    
+    <div class="alert alert-warning mx-5" role="alert">
+      <h4 class="alert-heading text-center">Benvenuti su Apulix!</h4>
+      <p class="text-center">Vi presentiamo il sito online di Apulix, dove sarete in grado di acquistare i nostri prodotti senza dovervi recare fisicamente in negozio!</p>
+      <hr>
+      <p class="text-center mb-0">Non vi preoccupate, non si pagano nè consegna, nè commissioni! Per accedere ai nostri prodotti, cliccate su "Prodotti" in alto a destra oppure seguite questo link: 
+        <a href="https://gabrielsaltarelli.github.io/informatica-problema/prodotti.html" class="alert-link">Prodotti</a>
+      </p>
+    </div>
+
+    <!-- Chi siamo -->
+    <section id="chi-siamo" class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Chi Siamo</h2>
+            <p class="text-center">
+                Apulix Shop è un negozio online che offre una selezione dei migliori prodotti tipici della Puglia. Dalla focaccia alle orecchiette, fino ai tarallini freschi, portiamo il gusto autentico della nostra terra direttamente a casa tua.
+            </p>
+            <p class="text-center">
+                Nel nostro sito, la tradizione pugliese si fonde con l’innovazione per offrire un’esperienza sensoriale senza precedenti...
+            </p>
+        </div>
+    </section>
+
+    <!-- Contatti -->
+    <section id="contatti" class="container py-5">
+        <h2 class="text-center mb-4">Contatti</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Email:</strong> info@apulixshop.com</p>
+                <p><strong>Telefono:</strong> +39 123 456 789</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Indirizzo:</strong> Via delle Dolomiti, 20 - Bari, Puglia</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Script di traduzione e logica del bottone -->
+    <script>
+      // Inizializza il widget Google Translate (nascosto)
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+          pageLanguage: 'it',
+          autoDisplay: false
+        }, 'google_translate_element');
+      }
+
+      // Al click, imposta cookie per traduzione e ricarica
+      function translateToEnglish() {
+        var host = window.location.hostname;
+        document.cookie = "googtrans=/it/en;path=/;domain=" + host;
+        document.cookie = "googtrans=/it/en;path=/;domain=." + host;
+        location.reload();
+      }
+    </script>
+    <script type="text/javascript"
+      src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
